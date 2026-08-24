@@ -108,6 +108,16 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+body.theme-transition,
+body.theme-transition * {
+  transition: background-color 0.45s ease, color 0.45s ease, border-color 0.45s ease, box-shadow 0.45s ease !important;
+}
+
+body.theme-transition::before,
+body.theme-transition::after {
+  transition: opacity 0.45s ease, background-color 0.45s ease;
+}
+
 hr {
   margin: 1rem 0;
   color: inherit;
@@ -11127,6 +11137,65 @@ body.light-mode .theme-toggle {
   background: rgba(17, 24, 39, 0.04);
   border-color: rgba(17, 24, 39, 0.18);
   color: #111827;
+}
+
+.theme-toggle {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1030;
+  margin-left: 0;
+}
+
+.scroll-top {
+  position: fixed;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1030;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.7rem;
+  height: 2.7rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.7);
+  border-radius: 50%;
+  background: rgba(17, 24, 39, 0.92);
+  color: #fff;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
+}
+
+.scroll-top.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.scroll-top:hover {
+  transform: translateY(-2px);
+}
+
+body.light-mode .scroll-top {
+  border-color: rgba(17, 24, 39, 0.7);
+  background: rgba(255, 255, 255, 0.92);
+  color: #111827;
+}
+
+@media (max-width: 575.98px) {
+  .theme-toggle,
+  .scroll-top {
+    bottom: 1rem;
+  }
+
+  .theme-toggle {
+    right: 1rem;
+  }
+
+  .scroll-top {
+    left: 1rem;
+  }
 }
 body.light-mode .masthead {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0.5) 0%, rgba(17, 24, 39, 0.7) 70%, #111827 100%), url("../assets/img/LumenOrientale-logo.png");
