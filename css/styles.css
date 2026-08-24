@@ -11139,6 +11139,25 @@ body.light-mode .theme-toggle {
   color: #111827;
 }
 
+body:not(.light-mode) #mainNav {
+  background-color: rgba(17, 24, 39, 0.96);
+}
+
+body:not(.light-mode) #mainNav .navbar-brand,
+body:not(.light-mode) #mainNav .nav-link {
+  color: #fff;
+}
+
+body:not(.light-mode) #mainNav .nav-link:hover,
+body:not(.light-mode) #mainNav .nav-link:focus {
+  color: #a7f3d0;
+}
+
+body:not(.light-mode) #mainNav .navbar-toggler {
+  color: #a7f3d0;
+  border-color: #a7f3d0;
+}
+
 .theme-toggle {
   position: fixed;
   right: 1.5rem;
