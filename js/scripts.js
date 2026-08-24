@@ -43,8 +43,16 @@ window.addEventListener('DOMContentLoaded', event => {
     const themeToggle = document.body.querySelector('#themeToggle');
     const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    const applyTheme = function (theme) {
+    const applyTheme = function (theme, animate = false) {
         const isLightMode = theme === 'light';
+
+        if (animate && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            document.body.classList.add('theme-transition');
+            window.setTimeout(() => {
+                document.body.classList.remove('theme-transition');
+            }, 500);
+        }
+
         document.body.classList.toggle('light-mode', isLightMode);
 
         if (themeToggle) {
@@ -85,8 +93,24 @@ window.addEventListener('DOMContentLoaded', event => {
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             const nextTheme = document.body.classList.contains('light-mode') ? 'dark' : 'light';
-            applyTheme(nextTheme);
+            applyTheme(nextTheme, true);
         });
+    }
+
+    const scrollTop = document.body.querySelector('#scrollTop');
+    const toggleScrollTop = function () {
+        if (scrollTop) {
+            scrollTop.classList.toggle('visible', window.scrollY > 300);
+        }
+    };
+
+    if (scrollTop) {
+        scrollTop.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+        toggleScrollTop();
+        document.addEventListener('scroll', toggleScrollTop);
     }
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
@@ -94,7 +118,7 @@ window.addEventListener('DOMContentLoaded', event => {
         mediaQuery.addEventListener('change', (event) => {
             const savedTheme = localStorage.getItem('theme');
             if (!savedTheme || (savedTheme !== 'light' && savedTheme !== 'dark')) {
-                applyTheme(event.matches ? 'dark' : 'light');
+                applyTheme(event.matches ? 'dark' : 'light', true);
             }
         });
     }
