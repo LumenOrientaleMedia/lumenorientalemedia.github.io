@@ -41,7 +41,12 @@ window.addEventListener('DOMContentLoaded', event => {
     }
 
     const themeToggle = document.body.querySelector('#themeToggle');
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+    const getScheduledTheme = function () {
+        const now = new Date();
+        const minutes = now.getHours() * 60 + now.getMinutes();
+        return minutes >= 18 * 60 || minutes < 6 * 60 ? 'dark' : 'light';
+    };
 
     const applyTheme = function (theme, animate = false) {
         const isLightMode = theme === 'light';
@@ -65,18 +70,9 @@ window.addEventListener('DOMContentLoaded', event => {
             }
         }
 
-        localStorage.setItem('theme', theme);
     };
 
-    const getInitialTheme = function () {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'light' || savedTheme === 'dark') {
-            return savedTheme;
-        }
-        return systemPrefersDark ? 'dark' : 'light';
-    };
-
-    applyTheme(getInitialTheme());
+    applyTheme(getScheduledTheme());
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -84,6 +80,15 @@ window.addEventListener('DOMContentLoaded', event => {
             applyTheme(nextTheme, true);
         });
     }
+
+    let scheduledTheme = getScheduledTheme();
+    window.setInterval(() => {
+        const currentScheduledTheme = getScheduledTheme();
+        if (currentScheduledTheme !== scheduledTheme) {
+            scheduledTheme = currentScheduledTheme;
+            applyTheme(currentScheduledTheme, true);
+        }
+    }, 60000);
 
     const scrollTop = document.body.querySelector('#scrollTop');
     const toggleScrollTop = function () {
@@ -104,10 +109,7 @@ window.addEventListener('DOMContentLoaded', event => {
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     if (typeof mediaQuery.addEventListener === 'function') {
         mediaQuery.addEventListener('change', (event) => {
-            const savedTheme = localStorage.getItem('theme');
-            if (!savedTheme || (savedTheme !== 'light' && savedTheme !== 'dark')) {
-                applyTheme(event.matches ? 'dark' : 'light', true);
-            }
+            applyTheme(getScheduledTheme(), true);
         });
     }
 
