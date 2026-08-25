@@ -16,42 +16,87 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <div class="page-loader" id="pageLoader" aria-live="polite" aria-label="Loading website">
-            <div class="loader-text" id="loaderPercent">1%</div>
-            <div class="loader-bar" aria-hidden="true">
-                <div class="loader-bar-fill" id="loaderBarFill"></div>
+        <div class="page-loader" id="pageLoader" aria-label="Loading website">
+            <div class="loader-aurora" aria-hidden="true"></div>
+            <div class="loader-stage">
+                <div class="loader-emblem" aria-hidden="true">
+                    <span class="loader-ring loader-ring-outer"></span>
+                    <span class="loader-ring loader-ring-inner"></span>
+                    <span class="loader-orbit-dot"></span>
+                    <span class="loader-mark"></span>
+                </div>
+                <p class="loader-brand">Lumen Orientale Media Productions</p>
+                <p class="loader-status" id="loaderStatus" aria-live="polite">Preparing the light from the east</p>
+                <div class="loader-progress-row">
+                    <div class="loader-bar" aria-hidden="true">
+                        <div class="loader-bar-fill" id="loaderBarFill"></div>
+                    </div>
+                    <div class="loader-text" id="loaderPercent" aria-hidden="true">1%</div>
+                </div>
             </div>
+        </div>
+        <div class="dynamic-background" aria-hidden="true">
+            <span class="dynamic-orb dynamic-orb-one"></span>
+            <span class="dynamic-orb dynamic-orb-two"></span>
+            <span class="dynamic-orb dynamic-orb-three"></span>
         </div>
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
             <div class="container px-4 px-lg-5">
                 <a class="navbar-brand" href="#page-top">Lumen Orientale Media Productions</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
+                <button class="site-search-toggle site-search-toggle-desktop" id="site-search-toggle" type="button" aria-controls="site-search" aria-expanded="false" aria-label="Search this website">
+                    <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                </button>
+                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Open navigation menu">
+                    <i class="fas fa-bars" aria-hidden="true"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav ms-auto">
+                        <li class="nav-item mobile-search-item">
+                            <button class="site-search-toggle site-search-toggle-mobile" type="button" aria-controls="site-search" aria-expanded="false" aria-label="Search this website">
+                                <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                                <span>Search this website</span>
+                            </button>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#page-top">Home</a></li>
                         <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
                         <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contact</a></li>
+                        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
                     </ul>
                 </div>
-                <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false">
-                    <i class="theme-icon theme-sun fa-solid fa-sun" aria-hidden="true"></i>
-                    <i class="theme-icon theme-moon fa-solid fa-moon" aria-hidden="true"></i>
-                </button>
             </div>
         </nav>
+        <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch to light mode" aria-pressed="false" title="Change colour theme">
+            <i class="theme-icon theme-sun fa-solid fa-sun" aria-hidden="true"></i>
+            <i class="theme-icon theme-moon fa-solid fa-moon" aria-hidden="true"></i>
+        </button>
+        <section class="site-search" id="site-search" role="dialog" aria-modal="true" aria-label="Search this website" aria-hidden="true">
+            <div class="site-search-panel">
+                <div class="site-search-heading">
+                    <h2>Search this website</h2>
+                    <button class="site-search-close" id="site-search-close" type="button" aria-label="Close search">
+                        <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <form id="site-search-form" role="search">
+                    <label class="visually-hidden" for="site-search-input">Search this website</label>
+                    <div class="site-search-field">
+                        <i class="fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+                        <input id="site-search-input" type="search" placeholder="Search pages and sections" autocomplete="off" />
+                    </div>
+                </form>
+                <p class="site-search-message" id="site-search-message">Try “projects”, “founder”, or “contact”.</p>
+                <ul class="site-search-results" id="site-search-results" aria-live="polite"></ul>
+            </div>
+        </section>
         <!-- Masthead-->
         <header class="masthead">
             <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
-                        <h1 class="mx-auto my-0 ">Illuminating Faith</h1>
-                        <h1 class="mx-auto my-0 ">Inspiring Stories</h1>
-                        <br>
+                        <h1 class="mx-auto my-0">Illuminating Faith</h1>
+                        <h1 class="mx-auto my-0">Inspiring Stories</h1>
+                        <br />
                         <h2 class="text-white-50 mx-auto mt-2 mb-5">We make inspiring stories illuminated by the Light of Christ</h2>
                         <a class="btn btn-primary" href="#about">Get Started</a>
                     </div>
@@ -169,7 +214,7 @@
             </div>
         </section>
         <!-- Contact-->
-        <section class="contact-section bg-black">
+        <section class="contact-section bg-black" id="contact">
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5">
                     <div class="col-md-4 mb-3 mb-md-0">
