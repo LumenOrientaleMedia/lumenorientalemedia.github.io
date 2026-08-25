@@ -56,24 +56,12 @@ window.addEventListener('DOMContentLoaded', event => {
         document.body.classList.toggle('light-mode', isLightMode);
 
         if (themeToggle) {
-            const icon = themeToggle.querySelector('i');
+            themeToggle.setAttribute('aria-pressed', String(!isLightMode));
 
             if (isLightMode) {
                 themeToggle.setAttribute('aria-label', 'Switch to dark mode');
-                if (icon) {
-                    icon.className = 'fa-solid fa-sun';
-                    icon.style.color = '#111827';
-                    icon.style.webkitTextStroke = '1.5px #111827';
-                    icon.style.textShadow = 'none';
-                }
             } else {
                 themeToggle.setAttribute('aria-label', 'Switch to light mode');
-                if (icon) {
-                    icon.className = 'fa-solid fa-moon';
-                    icon.style.color = '#ffffff';
-                    icon.style.webkitTextStroke = '1.5px #ffffff';
-                    icon.style.textShadow = 'none';
-                }
             }
         }
 
