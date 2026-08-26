@@ -6,6 +6,13 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Home | Lumen Orientale Media Productions</title>
+        <script>
+            (() => {
+                if (!window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.classList.add('light-mode');
+                }
+            })();
+        </script>
         <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
         <!-- Font Awesome icons (free version)-->
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -16,22 +23,21 @@
         <link href="css/styles.css" rel="stylesheet" />
     </head>
     <body id="page-top">
-        <div class="page-loader" id="pageLoader" aria-label="Loading website">
-            <div class="loader-aurora" aria-hidden="true"></div>
+        <div class="page-loader" id="pageLoader" role="status" aria-live="polite" aria-label="Loading Lumen Orientale">
             <div class="loader-stage">
-                <div class="loader-emblem" aria-hidden="true">
-                    <span class="loader-ring loader-ring-outer"></span>
-                    <span class="loader-ring loader-ring-inner"></span>
-                    <span class="loader-orbit-dot"></span>
-                    <span class="loader-mark"></span>
+                <div class="loader-light" aria-hidden="true">
+                    <span class="loader-sun"></span>
+                    <span class="loader-horizon"></span>
+                    <span class="loader-ray loader-ray-left"></span>
+                    <span class="loader-ray loader-ray-right"></span>
                 </div>
-                <p class="loader-brand">Lumen Orientale Media Productions</p>
-                <p class="loader-status" id="loaderStatus" aria-live="polite">Preparing the light from the east</p>
+                <p class="loader-brand"><span>Lumen Orientale</span> Media Productions</p>
+                <p class="loader-status" id="loaderStatus">Illuminating stories</p>
                 <div class="loader-progress-row">
                     <div class="loader-bar" aria-hidden="true">
                         <div class="loader-bar-fill" id="loaderBarFill"></div>
                     </div>
-                    <div class="loader-text" id="loaderPercent" aria-hidden="true">1%</div>
+                    <div class="loader-text" id="loaderPercent" aria-hidden="true">0%</div>
                 </div>
             </div>
         </div>

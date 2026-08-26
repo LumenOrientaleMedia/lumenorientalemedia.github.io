@@ -15,20 +15,22 @@ window.addEventListener('DOMContentLoaded', event => {
     const loaderStatus = document.getElementById('loaderStatus');
 
     if (pageLoader) {
-        let progress = 1;
+        const loaderDuration = 8500;
+        const loaderStartedAt = performance.now();
+        let progress = 0;
         const progressInterval = setInterval(() => {
+            const elapsed = performance.now() - loaderStartedAt;
+            progress = Math.min(100, Math.round((elapsed / loaderDuration) * 100));
+
             if (progress >= 100) {
                 clearInterval(progressInterval);
                 pageLoader.classList.add('hidden');
-                return;
+                pageLoader.setAttribute('aria-hidden', 'true');
             }
 
-            progress += 1;
-
             if (loaderStatus) {
-                if (progress === 28) loaderStatus.textContent = 'Gathering stories';
-                if (progress === 58) loaderStatus.textContent = 'Focusing the vision';
-                if (progress === 84) loaderStatus.textContent = 'Almost illuminated';
+                if (progress >= 70) loaderStatus.textContent = 'Bringing them to light';
+                else if (progress >= 36) loaderStatus.textContent = 'Gathering stories';
             }
 
             if (loaderPercent) {
@@ -39,20 +41,12 @@ window.addEventListener('DOMContentLoaded', event => {
                 loaderBarFill.style.width = `${progress}%`;
             }
         }, 50);
-
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                pageLoader.classList.add('hidden');
-            }, 5000);
-        });
     }
 
     const themeToggle = document.body.querySelector('#themeToggle');
 
-    const getScheduledTheme = function () {
-        const now = new Date();
-        const minutes = now.getHours() * 60 + now.getMinutes();
-        return minutes >= 18 * 60 || minutes < 6 * 60 ? 'dark' : 'light';
+    const getSystemTheme = function () {
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     };
 
     const applyTheme = function (theme, animate = false) {
@@ -66,6 +60,7 @@ window.addEventListener('DOMContentLoaded', event => {
         }
 
         document.body.classList.toggle('light-mode', isLightMode);
+        document.documentElement.classList.toggle('light-mode', isLightMode);
 
         if (themeToggle) {
             themeToggle.setAttribute('aria-pressed', String(!isLightMode));
@@ -79,7 +74,7 @@ window.addEventListener('DOMContentLoaded', event => {
 
     };
 
-    applyTheme(getScheduledTheme());
+    applyTheme(getSystemTheme());
 
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
@@ -87,15 +82,6 @@ window.addEventListener('DOMContentLoaded', event => {
             applyTheme(nextTheme, true);
         });
     }
-
-    let scheduledTheme = getScheduledTheme();
-    window.setInterval(() => {
-        const currentScheduledTheme = getScheduledTheme();
-        if (currentScheduledTheme !== scheduledTheme) {
-            scheduledTheme = currentScheduledTheme;
-            applyTheme(currentScheduledTheme, true);
-        }
-    }, 60000);
 
     const scrollTop = document.body.querySelector('#scrollTop');
 
@@ -250,8 +236,8 @@ window.addEventListener('DOMContentLoaded', event => {
 
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     if (typeof mediaQuery.addEventListener === 'function') {
-        mediaQuery.addEventListener('change', (event) => {
-            applyTheme(getScheduledTheme(), true);
+        mediaQuery.addEventListener('change', () => {
+            applyTheme(getSystemTheme(), true);
         });
     }
 
